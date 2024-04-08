@@ -23,10 +23,10 @@ func TestGetFormItems_ValidStructType(t *testing.T) {
 		huh.NewConfirm().Title("Field3").Value(new(bool)),
 	}
 
-	expectedStrFieldValues := collection.New[*string]()
+	expectedStrFieldValues := collection.NewQueue[*string]()
 	expectedStrFieldValues.Enqueue(new(string))
 	expectedStrFieldValues.Enqueue(new(string))
-	expectedBoolFieldValues := collection.New[*bool]()
+	expectedBoolFieldValues := collection.NewQueue[*bool]()
 	expectedBoolFieldValues.Enqueue(new(bool))
 
 	// Act

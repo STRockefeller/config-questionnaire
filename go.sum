@@ -1,5 +1,7 @@
 github.com/STRockefeller/collection v0.0.0-20230411030518-1f27f4c0c6c3 h1:csYRCqeISYzml69MnKikZpCUDVOazoAXhZJThLSYCqk=
 github.com/STRockefeller/collection v0.0.0-20230411030518-1f27f4c0c6c3/go.mod h1:5QM/Qn3rwql+SvCmb+iCFJZCos8yyJ9Ls/6N9TDc6Oo=
+github.com/STRockefeller/collection v1.0.0 h1:JHrSsptdnfQiJocuNpF8hWRYVQikmkDGVOCLUC64A3M=
+github.com/STRockefeller/collection v1.0.0/go.mod h1:5QM/Qn3rwql+SvCmb+iCFJZCos8yyJ9Ls/6N9TDc6Oo=
 github.com/atotto/clipboard v0.1.4 h1:EH0zSVneZPSuFR11BlR9YppQTVDbh5+16AmcJi4g1z4=
 github.com/atotto/clipboard v0.1.4/go.mod h1:ZY9tmq7sm5xIbd9bOK4onWV4S6X0u6GY7Vn0Yu86PYI=
 github.com/aymanbagabas/go-osc52/v2 v2.0.1 h1:HwpRHbFMcZLEVr42D4p7XBqjyuxQH5SMiErDT4WkJ2k=

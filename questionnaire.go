@@ -47,12 +47,12 @@ func GenerateAndRunQuestionnaire[yamlModel any]() (yamlModel, error) {
 func getFormItems(typ reflect.Type) ([]huh.Field, collection.Queue[*string], collection.Queue[*bool], error) {
 	// Ensure we're dealing with a struct
 	if typ.Kind() != reflect.Struct {
-		return nil, collection.New[*string](), collection.New[*bool](), fmt.Errorf("provided model must be a struct, got %s", typ.Kind())
+		return nil, collection.NewQueue[*string](), collection.NewQueue[*bool](), fmt.Errorf("provided model must be a struct, got %s", typ.Kind())
 	}
 
 	var formItems []huh.Field
-	strFieldValues := collection.New[*string]()
-	boolFieldValues := collection.New[*bool]()
+	strFieldValues := collection.NewQueue[*string]()
+	boolFieldValues := collection.NewQueue[*bool]()
 	for i := 0; i < typ.NumField(); i++ {
 		field := typ.Field(i)
 		fieldName := field.Name
@@ -77,7 +77,7 @@ func getFormItems(typ reflect.Type) ([]huh.Field, collection.Queue[*string], col
 			boolFieldValues.Enqueue(&fieldValue)
 		// Add more types as needed
 		default:
-			return nil, collection.New[*string](), collection.New[*bool](), fmt.Errorf("unsupported field type: %s", field.Type.Kind())
+			return nil, collection.NewQueue[*string](), collection.NewQueue[*bool](), fmt.Errorf("unsupported field type: %s", field.Type.Kind())
 		}
 	}
 
