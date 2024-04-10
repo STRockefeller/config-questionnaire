@@ -60,15 +60,15 @@ func getFormItems(typ reflect.Type) ([]huh.Field, collection.Queue[*string], col
 		switch field.Type.Kind() {
 		case reflect.String:
 			var fieldValue string
-			formItems = append(formItems, huh.NewInput().Title(fieldName).Value(&fieldValue))
+			formItems = append(formItems, huh.NewInput().Title(fieldName+"(string)").Value(&fieldValue))
 			strFieldValues.Enqueue(&fieldValue)
 		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
 			var fieldValue string // Use string to capture input, convert to int later
-			formItems = append(formItems, huh.NewInput().Title(fieldName).Value(&fieldValue))
+			formItems = append(formItems, huh.NewInput().Title(fieldName+"(int)").Value(&fieldValue))
 			strFieldValues.Enqueue(&fieldValue)
 		case reflect.Bool:
 			var fieldValue bool
-			formItems = append(formItems, huh.NewConfirm().Title(fieldName).Value(&fieldValue))
+			formItems = append(formItems, huh.NewConfirm().Title(fieldName+"(bool)").Value(&fieldValue))
 			boolFieldValues.Enqueue(&fieldValue)
 		// Add more types as needed
 		default:
