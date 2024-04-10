@@ -1,7 +1,7 @@
 package example
 
 type Example struct {
-	Name   string
+	Name   string `questionnaire:"title:What's your name;"`
 	Age    int
 	HasPet bool
 }

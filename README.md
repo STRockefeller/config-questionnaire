@@ -18,14 +18,14 @@ go get github.com/STRockefeller/config-questionnaire
 
 ## Usage
 
-1. Define a config model as a Go struct. 
+1. Define a config model as a Go struct. You can use the `questionnaire` tag to customize the field name in the questionnaire.
 ```go
 package example
 
 type Example struct {
-    Name    string 
-    Age     int    
-    Married bool   
+	Name   string `questionnaire:"title:What's your name;"`
+	Age    int
+	HasPet bool
 }
 ```
 
@@ -48,6 +48,10 @@ func main() {
     fmt.Println(e)
 }
 ```
+
+3. the generated questionnaire will be run in the terminal and the user will be prompted to enter values for each field. The values will be returned as a struct of the same type as the model.
+
+![example](https://i.imgur.com/v67yg2j.png)
 
 ## Dependencies
 

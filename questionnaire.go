@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"reflect"
 	"strconv"
+	"strings"
 
 	"github.com/STRockefeller/collection"
 	"github.com/charmbracelet/huh"
@@ -44,6 +45,7 @@ func GenerateAndRunQuestionnaire[configModel any]() (configModel, error) {
 	return val.Interface().(configModel), nil
 }
 
+// getFormItems generates form items from a struct's fields. It checks for a "questionnaire" tag to customize field names, creates form items based on field types (string, int, bool), and enqueues their values in respective queues. Unsupported field types result in an error.
 func getFormItems(typ reflect.Type) ([]huh.Field, collection.Queue[*string], collection.Queue[*bool], error) {
 	// Ensure we're dealing with a struct
 	if typ.Kind() != reflect.Struct {
@@ -55,7 +57,18 @@ func getFormItems(typ reflect.Type) ([]huh.Field, collection.Queue[*string], col
 	boolFieldValues := collection.NewQueue[*bool]()
 	for i := 0; i < typ.NumField(); i++ {
 		field := typ.Field(i)
+		// Check for the questionnaire tag and use it if present
+		questionnaireTags, ok := field.Tag.Lookup("questionnaire")
 		fieldName := field.Name
+		if ok && questionnaireTags != "" {
+			tagParts := strings.Split(questionnaireTags, ";")
+			for _, tagPart := range tagParts {
+				if strings.Contains(tagPart, "title:") {
+					fieldName = strings.Split(tagPart, ":")[1]
+					break
+				}
+			}
+		}
 
 		switch field.Type.Kind() {
 		case reflect.String:
