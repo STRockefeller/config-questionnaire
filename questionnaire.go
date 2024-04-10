@@ -9,9 +9,9 @@ import (
 	"github.com/charmbracelet/huh"
 )
 
-// GenerateAndRunQuestionnaire dynamically creates and runs a questionnaire based on the struct fields of the provided YAML model.
-func GenerateAndRunQuestionnaire[yamlModel any]() (yamlModel, error) {
-	model := *new(yamlModel)
+// GenerateAndRunQuestionnaire dynamically creates and runs a questionnaire based on the struct fields of the provided model.
+func GenerateAndRunQuestionnaire[configModel any]() (configModel, error) {
+	model := *new(configModel)
 	ptr := reflect.New(reflect.TypeOf(model))
 	val := ptr.Elem() // Obtain a reflect.Value that is addressable
 	typ := val.Type()
@@ -41,7 +41,7 @@ func GenerateAndRunQuestionnaire[yamlModel any]() (yamlModel, error) {
 		}
 	}
 
-	return val.Interface().(yamlModel), nil
+	return val.Interface().(configModel), nil
 }
 
 func getFormItems(typ reflect.Type) ([]huh.Field, collection.Queue[*string], collection.Queue[*bool], error) {
@@ -56,11 +56,6 @@ func getFormItems(typ reflect.Type) ([]huh.Field, collection.Queue[*string], col
 	for i := 0; i < typ.NumField(); i++ {
 		field := typ.Field(i)
 		fieldName := field.Name
-		fieldTag := field.Tag.Get("yaml")
-
-		if fieldTag == "" {
-			continue // Skip fields without yaml tags
-		}
 
 		switch field.Type.Kind() {
 		case reflect.String:

@@ -1,5 +1,3 @@
-github.com/STRockefeller/collection v0.0.0-20230411030518-1f27f4c0c6c3 h1:csYRCqeISYzml69MnKikZpCUDVOazoAXhZJThLSYCqk=
-github.com/STRockefeller/collection v0.0.0-20230411030518-1f27f4c0c6c3/go.mod h1:5QM/Qn3rwql+SvCmb+iCFJZCos8yyJ9Ls/6N9TDc6Oo=
 github.com/STRockefeller/collection v1.0.0 h1:JHrSsptdnfQiJocuNpF8hWRYVQikmkDGVOCLUC64A3M=
 github.com/STRockefeller/collection v1.0.0/go.mod h1:5QM/Qn3rwql+SvCmb+iCFJZCos8yyJ9Ls/6N9TDc6Oo=
 github.com/atotto/clipboard v0.1.4 h1:EH0zSVneZPSuFR11BlR9YppQTVDbh5+16AmcJi4g1z4=
@@ -55,6 +53,7 @@ golang.org/x/term v0.13.0 h1:bb+I9cTfFazGW51MZqBVmZy7+JEJMouUHTUSKVQLBek=
 golang.org/x/term v0.13.0/go.mod h1:LTmsnFJwVN6bCy1rVCoS+qHT1HhALEFxKncY3WNNh4U=
 golang.org/x/text v0.13.0 h1:ablQoSUd0tRdKxZewP80B+BaqeKJuVhuRxj/dkrun3k=
 golang.org/x/text v0.13.0/go.mod h1:TvPlkZtksWOMsz7fbANvkp4WM8x/WCo/om8BMLbz+aE=
+gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 h1:yhCVgyC4o1eVCa2tZl7eS0r+SDo693bJlVdllGtEeKM=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
 gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=
 gopkg.in/yaml.v3 v3.0.1/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=

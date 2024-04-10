@@ -12,9 +12,9 @@ import (
 func TestGetFormItems_ValidStructType(t *testing.T) {
 	// Arrange
 	type TestStruct struct {
-		Field1 string `yaml:"field1"`
-		Field2 int    `yaml:"field2"`
-		Field3 bool   `yaml:"field3"`
+		Field1 string
+		Field2 int
+		Field3 bool
 	}
 
 	expectedFormItems := []huh.Field{

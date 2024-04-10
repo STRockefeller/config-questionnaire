@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	questionnaire "github.com/STRockefeller/yaml-questionnaire"
-	"github.com/STRockefeller/yaml-questionnaire/example"
+	questionnaire "github.com/STRockefeller/config-questionnaire"
+	"github.com/STRockefeller/config-questionnaire/example"
 )
 
 func main() {

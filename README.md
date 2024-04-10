@@ -1,32 +1,31 @@
-# YAML Questionnaire
+# Config Questionnaire
 
-![GitHub License](https://img.shields.io/github/license/STRockefeller/yaml-questionnaire)![GitHub Top Language](https://img.shields.io/github/languages/top/STRockefeller/yaml-questionnaire)![GitHub Actions Status](https://img.shields.io/github/actions/workflow/status/STRockefeller/yaml-questionnaire/super-linter.yml)[![Go Report Card](https://goreportcard.com/badge/github.com/STRockefeller/go-linq)](https://goreportcard.com/report/github.com/STRockefeller/yaml-questionnaire)[![Coverage Status](https://coveralls.io/repos/github/STRockefeller/go-linq/badge.svg?branch=main)](https://coveralls.io/github/STRockefeller/yaml-questionnaire?branch=main)
+![GitHub License](https://img.shields.io/github/license/STRockefeller/config-questionnaire)![GitHub Top Language](https://img.shields.io/github/languages/top/STRockefeller/config-questionnaire)![GitHub Actions Status](https://img.shields.io/github/actions/workflow/status/STRockefeller/config-questionnaire/super-linter.yml)[![Go Report Card](https://goreportcard.com/badge/github.com/STRockefeller/go-linq)](https://goreportcard.com/report/github.com/STRockefeller/config-questionnaire)[![Coverage Status](https://coveralls.io/repos/github/STRockefeller/go-linq/badge.svg?branch=main)](https://coveralls.io/github/STRockefeller/config-questionnaire?branch=main)
 
-A Go module for dynamically generating and running questionnaires based on the struct fields of provided YAML models.
+A Go module for dynamically generating and running questionnaires based on the struct fields of provided config models.
 
 ## Overview
 
-This module leverages reflection to inspect struct fields of any given YAML model and generates a questionnaire accordingly. It supports fields of type `string`, `int` (and its variants), and `bool`. The questionnaire is interactive and runs in the terminal using the [huh](https://github.com/charmbracelet/huh) library for form generation and input handling.
+This module leverages reflection to inspect struct fields of any given config model and generates a questionnaire accordingly. It supports fields of type `string`, `int` (and its variants), and `bool`. The questionnaire is interactive and runs in the terminal using the [huh](https://github.com/charmbracelet/huh) library for form generation and input handling.
 
 ## Installation
 
 To use this module in your Go project, ensure you have Go 1.22.1 or later, then run:
 
 ```bash
-go get github.com/STRockefeller/yaml-questionnaire
+go get github.com/STRockefeller/config-questionnaire
 ```
 
 ## Usage
 
-1. Define a YAML model as a Go struct. Ensure to tag struct fields with `yaml` to indicate which fields should be included in the questionnaire.
-
+1. Define a config model as a Go struct. 
 ```go
 package example
 
 type Example struct {
-    Name    string `yaml:"name"`
-    Age     int    `yaml:"age"`
-    Married bool   `yaml:"married"`
+    Name    string 
+    Age     int    
+    Married bool   
 }
 ```
 
@@ -37,8 +36,8 @@ package main
 
 import (
     "fmt"
-    questionnaire "github.com/STRockefeller/yaml-questionnaire"
-    "github.com/STRockefeller/yaml-questionnaire/example"
+    questionnaire "github.com/STRockefeller/config-questionnaire"
+    "github.com/STRockefeller/config-questionnaire/example"
 )
 
 func main() {
