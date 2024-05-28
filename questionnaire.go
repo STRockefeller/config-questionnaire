@@ -26,20 +26,8 @@ func GenerateAndRunQuestionnaire[configModel any]() (configModel, error) {
 	}
 
 	// Update model with form values
-	for i := range formItems {
-		field := typ.Field(i)
-		switch field.Type.Kind() {
-		case reflect.String:
-			val.Field(i).SetString(*strFieldValues.Dequeue())
-		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-			intVal, err := strconv.Atoi(*strFieldValues.Dequeue())
-			if err != nil {
-				return model, fmt.Errorf("invalid integer value for %s: %v", field.Name, err)
-			}
-			val.Field(i).SetInt(int64(intVal))
-		case reflect.Bool:
-			val.Field(i).SetBool(*boolFieldValues.Dequeue())
-		}
+	if err := updateModelValues(val, typ, strFieldValues, boolFieldValues); err != nil {
+		return model, err
 	}
 
 	return val.Interface().(configModel), nil
@@ -83,11 +71,48 @@ func getFormItems(typ reflect.Type) ([]huh.Field, collection.Queue[*string], col
 			var fieldValue bool
 			formItems = append(formItems, huh.NewConfirm().Title(fieldName+"(bool)").Value(&fieldValue))
 			boolFieldValues.Enqueue(&fieldValue)
-		// Add more types as needed
+		case reflect.Struct:
+			// Recursively get form items for nested struct
+			nestedItems, nestedStrValues, nestedBoolValues, err := getFormItems(field.Type)
+			if err != nil {
+				return nil, collection.NewQueue[*string](), collection.NewQueue[*bool](), err
+			}
+			formItems = append(formItems, nestedItems...)
+			for !nestedStrValues.IsEmpty() {
+				strFieldValues.Enqueue(nestedStrValues.Dequeue())
+			}
+			for !nestedBoolValues.IsEmpty() {
+				boolFieldValues.Enqueue(nestedBoolValues.Dequeue())
+			}
 		default:
 			return nil, collection.NewQueue[*string](), collection.NewQueue[*bool](), fmt.Errorf("unsupported field type: %s", field.Type.Kind())
 		}
 	}
 
 	return formItems, strFieldValues, boolFieldValues, nil
+}
+
+// updateModelValues updates the model's fields with the values from the form.
+func updateModelValues(val reflect.Value, typ reflect.Type, strFieldValues collection.Queue[*string], boolFieldValues collection.Queue[*bool]) error {
+	for i := 0; i < typ.NumField(); i++ {
+		field := typ.Field(i)
+		fieldVal := val.Field(i)
+		switch field.Type.Kind() {
+		case reflect.String:
+			fieldVal.SetString(*strFieldValues.Dequeue())
+		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+			intVal, err := strconv.Atoi(*strFieldValues.Dequeue())
+			if err != nil {
+				return fmt.Errorf("invalid integer value for %s: %v", field.Name, err)
+			}
+			fieldVal.SetInt(int64(intVal))
+		case reflect.Bool:
+			fieldVal.SetBool(*boolFieldValues.Dequeue())
+		case reflect.Struct:
+			if err := updateModelValues(fieldVal, field.Type, strFieldValues, boolFieldValues); err != nil {
+				return err
+			}
+		}
+	}
+	return nil
 }

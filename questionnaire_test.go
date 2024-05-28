@@ -15,12 +15,16 @@ func TestGetFormItems_ValidStructType(t *testing.T) {
 		Field1 string
 		Field2 int
 		Field3 bool
+		Field4 struct {
+			Field41 string
+		}
 	}
 
 	expectedFormItems := []huh.Field{
 		huh.NewInput().Title("Field1").Value(new(string)),
 		huh.NewInput().Title("Field2").Value(new(string)),
 		huh.NewConfirm().Title("Field3").Value(new(bool)),
+		huh.NewInput().Title("Field41").Value(new(string)),
 	}
 
 	expectedStrFieldValues := collection.NewQueue[*string]()
@@ -28,6 +32,7 @@ func TestGetFormItems_ValidStructType(t *testing.T) {
 	expectedStrFieldValues.Enqueue(new(string))
 	expectedBoolFieldValues := collection.NewQueue[*bool]()
 	expectedBoolFieldValues.Enqueue(new(bool))
+	expectedStrFieldValues.Enqueue(new(string))
 
 	// Act
 	formItems, strFieldValues, boolFieldValues, err := getFormItems(reflect.TypeOf(TestStruct{}))
